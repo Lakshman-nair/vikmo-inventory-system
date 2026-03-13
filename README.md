@@ -178,7 +178,7 @@ Line Total = 4000
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 * Inventory auto-update when order is placed
 * Order total calculation
@@ -189,7 +189,7 @@ Line Total = 4000
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 Lakshman G Nair
 Mechanical Engineer | Python Developer
