@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">User Dashboard</h2>
+
+
+<!-- Summary Cards -->
+
+<div class="row">
+
+<div class="col-md-4">
+<div class="card text-white bg-primary mb-3">
+<div class="card-body">
+<h5>Available Products</h5>
+<h2>{{ product_count }}</h2>
+</div>
+</div>
+</div>
+
+
+<div class="col-md-4">
+<div class="card text-white bg-success mb-3">
+<div class="card-body">
+<h5>Dealers</h5>
+<h2>{{ dealer_count }}</h2>
+</div>
+</div>
+</div>
+
+
+<div class="col-md-4">
+<div class="card text-white bg-info mb-3">
+<div class="card-body">
+<h5>Total Inventory</h5>
+<h2>{{ inventory_count }}</h2>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<!-- Quick Actions -->
+
+<h4 class="mt-4">Quick Actions</h4>
+
+<div class="mb-4">
+
+<a href="/create-order/" class="btn btn-primary">
+Create Order
+</a>
+
+<a href="/inventory/" class="btn btn-success">
+View Inventory
+</a>
+
+<a href="/dealers/" class="btn btn-warning">
+View Dealers
+</a>
+
+<a href="/orders/" class="btn btn-dark">
+View All Orders
+</a>
+
+</div>
+
+
+<!-- Inventory Chart -->
+
+<h4 class="mt-4">Inventory Overview</h4>
+
+<canvas id="inventoryChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx = document.getElementById('inventoryChart');
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: [
+{% for i in inventory %}
+"{{ i.product.name }}",
+{% endfor %}
+],
+datasets: [{
+label: 'Stock',
+data: [
+{% for i in inventory %}
+{{ i.quantity }},
+{% endfor %}
+],
+backgroundColor: '#3498db'
+}]
+}
+});
+
+</script>
+
+
+<!-- My Orders -->
+
+<h4 class="mt-5">My Orders</h4>
+
+<table class="table table-striped">
+
+<tr>
+<th>Order Number</th>
+<th>Dealer</th>
+<th>Total</th>
+<th>Status</th>
+<th>Track</th>
+</tr>
+
+{% for order in orders %}
+
+<tr>
+
+<td>{{ order.order_number }}</td>
+
+<td>{{ order.dealer.name }}</td>
+
+<td>₹{{ order.total_amount }}</td>
+
+<td>
+
+{% if order.status == "Pending" %}
+<span class="badge bg-warning text-dark">Pending</span>
+
+{% elif order.status == "Processing" %}
+<span class="badge bg-primary">Processing</span>
+
+{% elif order.status == "Shipped" %}
+<span class="badge bg-info text-dark">Shipped</span>
+
+{% elif order.status == "Delivered" %}
+<span class="badge bg-success">Delivered</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/track-order/{{ order.id }}/" class="btn btn-sm btn-secondary">
+Track
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="5" class="text-center">No orders yet</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

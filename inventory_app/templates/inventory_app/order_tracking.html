@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Order Tracking</h2>
+
+<h4>Order: {{ order.order_number }}</h4>
+
+<div class="mt-4">
+
+<ul class="list-group">
+
+<li class="list-group-item
+{% if order.status == 'Pending' or order.status == 'Processing' or order.status == 'Shipped' or order.status == 'Delivered' %}
+list-group-item-success
+{% endif %}">
+✔ Pending
+</li>
+
+<li class="list-group-item
+{% if order.status == 'Processing' or order.status == 'Shipped' or order.status == 'Delivered' %}
+list-group-item-success
+{% endif %}">
+✔ Processing
+</li>
+
+<li class="list-group-item
+{% if order.status == 'Shipped' or order.status == 'Delivered' %}
+list-group-item-success
+{% endif %}">
+✔ Shipped
+</li>
+
+<li class="list-group-item
+{% if order.status == 'Delivered' %}
+list-group-item-success
+{% endif %}">
+✔ Delivered
+</li>
+
+</ul>
+
+</div>
+
+{% endblock %}

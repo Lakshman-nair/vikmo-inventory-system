@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Create Dealer Order</h2>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<!-- Dealer -->
+
+<div class="mb-4">
+
+<label class="form-label"><b>Select Dealer</b></label>
+
+<select name="dealer" class="form-control" required>
+
+<option value="">Choose Dealer</option>
+
+{% for dealer in dealers %}
+
+<option value="{{ dealer.id }}">
+{{ dealer.name }} | {{ dealer.email }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<hr>
+
+<h5>Products</h5>
+
+<div id="product-container">
+
+<div class="row product-row mb-3">
+
+<div class="col-md-4">
+
+<select name="product[]" class="form-control product-select" required>
+
+<option value="">Select Product</option>
+
+{% for product in products %}
+
+<option value="{{ product.id }}" data-price="{{ product.price }}">
+{{ product.name }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-2">
+
+<input type="number" name="quantity[]" class="form-control quantity" placeholder="Qty" required>
+
+</div>
+
+<div class="col-md-2">
+
+<input type="number" name="price[]" class="form-control price" placeholder="Price" readonly>
+
+</div>
+
+<div class="col-md-2">
+
+<input type="number" name="line_total[]" class="form-control total" placeholder="Total" readonly>
+
+</div>
+
+<div class="col-md-2">
+
+<button type="button" class="btn btn-danger remove-row">X</button>
+
+</div>
+
+</div>
+
+</div>
+
+<button type="button" class="btn btn-secondary mb-3" id="add-product">
++ Add Product
+</button>
+
+<hr>
+
+<h4>Total Amount: ₹ <span id="grand-total">0</span></h4>
+
+<button class="btn btn-success mt-3">
+Create Order
+</button>
+
+<a href="/" class="btn btn-outline-secondary mt-3">
+Back
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script>
+
+function updateTotals(){
+
+let rows=document.querySelectorAll(".product-row");
+let grand=0;
+
+rows.forEach(row=>{
+
+let qty=row.querySelector(".quantity").value || 0;
+let price=row.querySelector(".price").value || 0;
+
+let total=qty*price;
+
+row.querySelector(".total").value=total;
+
+grand+=total;
+
+});
+
+document.getElementById("grand-total").innerText=grand;
+
+}
+
+document.addEventListener("change",function(e){
+
+if(e.target.classList.contains("product-select")){
+
+let price=e.target.options[e.target.selectedIndex].dataset.price;
+
+let row=e.target.closest(".product-row");
+
+row.querySelector(".price").value=price;
+
+updateTotals();
+
+}
+
+});
+
+document.addEventListener("keyup",function(e){
+
+if(e.target.classList.contains("quantity")){
+
+updateTotals();
+
+}
+
+});
+
+document.getElementById("add-product").onclick=function(){
+
+let container=document.getElementById("product-container");
+
+let row=container.children[0].cloneNode(true);
+
+row.querySelectorAll("input").forEach(i=>i.value="");
+
+container.appendChild(row);
+
+};
+
+document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("remove-row")){
+
+let rows=document.querySelectorAll(".product-row");
+
+if(rows.length>1){
+
+e.target.closest(".product-row").remove();
+
+updateTotals();
+
+}
+
+}
+
+});
+
+</script>
+
+{% endblock %}
