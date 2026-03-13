@@ -1,11 +1,11 @@
-# 📦 Django Sales Order & Inventory Management System
+#  Django Sales Order & Inventory Management System
 
 A **Sales Order and Inventory Management System** built using **Django** and **Django REST Framework**.
 This project allows businesses to manage **products, dealers, inventory, and sales orders** through REST APIs and a simple dashboard interface.
 
 ---
 
-# 🚀 Features
+#  Features
 
 * Product Management
 * Dealer Management
@@ -18,7 +18,7 @@ This project allows businesses to manage **products, dealers, inventory, and sal
 
 ---
 
-# 🛠 Tech Stack
+#  Tech Stack
 
 * Python
 * Django
@@ -29,7 +29,7 @@ This project allows businesses to manage **products, dealers, inventory, and sal
 
 ---
 
-# 📂 Project Structure
+#  Project Structure
 
 ```
 vikmo_project/
@@ -56,7 +56,7 @@ vikmo_project/
 
 ---
 
-# 📊 Database Models
+#  Database Models
 
 ## Product
 
@@ -94,7 +94,7 @@ vikmo_project/
 
 ---
 
-# 🔌 API Endpoints
+#  API Endpoints
 
 | Endpoint         | Description       |
 | ---------------- | ----------------- |
@@ -107,9 +107,9 @@ vikmo_project/
 
 ---
 
-# ⚙️ Installation
+#  Installation
 
-### 1️⃣ Clone Repository
+### 1 Clone Repository
 
 ```
 git clone https://github.com/yourusername/sales-inventory-system.git
@@ -118,7 +118,7 @@ cd sales-inventory-system
 
 ---
 
-### 2️⃣ Create Virtual Environment
+### 2 Create Virtual Environment
 
 Mac / Linux
 
@@ -135,7 +135,7 @@ venv\Scripts\activate
 
 ---
 
-### 3️⃣ Install Dependencies
+### 3 Install Dependencies
 
 ```
 pip install django djangorestframework
@@ -143,7 +143,7 @@ pip install django djangorestframework
 
 ---
 
-### 4️⃣ Run Migrations
+### 4 Run Migrations
 
 ```
 python3 manage.py makemigrations
@@ -152,7 +152,7 @@ python3 manage.py migrate
 
 ---
 
-### 5️⃣ Run Server
+### 5 Run Server
 
 ```
 python3 manage.py runserver
@@ -166,7 +166,7 @@ http://127.0.0.1:8000/
 
 ---
 
-# 🧮 Order Calculation Example
+# Order Calculation Example
 
 ```
 Quantity = 5
